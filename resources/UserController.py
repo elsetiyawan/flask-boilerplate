@@ -3,10 +3,11 @@ from flask import request, jsonify
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 
-from app import db, User
+from databases.db import db
+from databases.models import User
 
 
-class UserC(Resource):
+class UserController(Resource):
     def post(self):
         try:
             body = request.get_json()
