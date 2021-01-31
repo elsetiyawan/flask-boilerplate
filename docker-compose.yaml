@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=1123581321
+      - POSTGRES_USER=elsetiyawan
+      - POSTGRES_DB=elsetiyawan
+    networks:
+      - flask_network
+  app:
+    container_name: flaskapp
+    image: flaskapp
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URI=postgresql://elsetiyawan:1123581321@db/elsetiyawan
+      - JWT_SECRET=thesecretliesonthesky
+      - UPLOAD_FOLDER=files
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    name: flask_network
